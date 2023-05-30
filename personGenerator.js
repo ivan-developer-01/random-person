@@ -65,6 +65,7 @@ const personGenerator = {
         this.person = {};
         this.person.gender = this.randomGender();
         this.person.firstName = this.randomFirstName();
+        this.person.surname = this.randomSurname();
         return this.person;
     }
 };

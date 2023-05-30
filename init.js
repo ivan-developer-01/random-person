@@ -1,4 +1,10 @@
 window.onload = function() {
     const initPerson = personGenerator.getPerson();
-    document.getElementById('firstNameOutput').innerText = initPerson.firstName;
+
+    const firstNameElem = document.querySelector("#firstNameOutput");
+    const surnameElem = document.querySelector("#surnameOutput");
+    const genderOutput = document.querySelector("#genderOutput");
+
+    firstNameElem.innerText = initPerson.firstName;
+    surnameElem.innerText = initPerson.surname;
 };
