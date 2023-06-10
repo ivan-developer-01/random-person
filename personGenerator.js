@@ -1,4 +1,43 @@
 const personGenerator = {
+	get professionJson() {
+		return `{
+	"male": ${this.professionJsonMale},
+	"female": ${this.professionJsonFemale}
+}`;
+	},
+
+	professionJsonMale: `{
+		"count": 10,
+		"list": {
+			"id_1": "IT-специалист",
+            "id_2": "Сотрудник банка",
+            "id_3": "Юрист",
+            "id_4": "SMM-специалист",
+            "id_5": "Строитель",
+            "id_6": "Менеджер",
+            "id_7": "Хирург",
+            "id_8": "Специалист по продажам",
+            "id_9": "Маркетолог",
+            "id_10": "Бухгалтер"
+		}
+	}`,
+
+	professionJsonFemale: `{
+		"count": 10,
+		"list": {
+			"id_1": "Копирайтер",
+            "id_2": "Графический дизайнер",
+            "id_3": "Иллюстратор",
+            "id_4": "Повар",
+            "id_5": "Актриса",
+            "id_6": "Интернет-маркетолог",
+            "id_7": "Искусствовед",
+            "id_8": "Парикмахер",
+            "id_9": "Лингвист",
+            "id_10": "Психолог"
+		}
+	}`,
+
 	patronymicJsonMale: `{
 		"count": 15,
 		"list": {
@@ -151,7 +190,6 @@ const personGenerator = {
 		let patronymicJson = JSON.parse(this.patronymicJson);
 		patronymicJson.male = JSON.stringify(patronymicJson.male);
 		patronymicJson.female = JSON.stringify(patronymicJson.female);
-		console.log(patronymicJson);
 		let returnPatronymic = "";
 
 		if (this.person?.gender === this.GENDER_MALE) {
@@ -165,6 +203,23 @@ const personGenerator = {
 		throw new Error("Bad script code!");
 	},
 
+	randomProfession: function() {
+		let professionJson = JSON.parse(this.professionJson);
+		professionJson.male = JSON.stringify(professionJson.male);
+		professionJson.female = JSON.stringify(professionJson.female);
+		let returnProfession = "";
+
+		if (this.person?.gender === this.GENDER_MALE) {
+			returnProfession = this.randomValue(professionJson.male);
+		} else if (this.person?.gender === this.GENDER_FEMALE) {
+			returnProfession = this.randomValue(professionJson.female);
+		}
+
+		if (returnProfession) return returnProfession;
+
+		throw new Error("Bad script code!");
+	},
+
 
     getPerson: function () {
         this.person = {};
@@ -173,6 +228,7 @@ const personGenerator = {
         this.person.surname = this.randomSurname();
         this.person.birthYear = this.randomBirthYear();
 		this.person.patronymic = this.randomPatronymic();
+		this.person.profession = this.randomProfession();
         return this.person;
     }
 };
