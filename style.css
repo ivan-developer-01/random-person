@@ -1,0 +1,20 @@
+body {
+	height: 100vh;
+	padding-top: 20vh;
+	font-size: 23px;
+	background: linear-gradient(to bottom, #e8e8ff, #e2f4ff);
+}
+
+.card-header {
+	background: linear-gradient(to bottom left, #dddddd, #bfbfbf);
+}
+
+.card-body {
+	background: linear-gradient(to bottom, #9898b6, #c2c9dc);
+	color: #2c2c2c;
+}
+
+.output-item {
+	/* text-shadow: 2px 2px 0px #FFFFFF, 5px 4px 0px rgba(0,0,0,0.15), -9px 11px 12px rgba(206,0,0,0.39); */
+	font-style: italic;
+}

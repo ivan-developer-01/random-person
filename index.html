@@ -11,27 +11,27 @@
 <body>
 <div class="container">
     <div class="row game-card align-items-center">
-        <div class="col col-md-6 offset-md-3">
-            <div class="card text-center">
+        <div class="col col-md-11 offset-md-1">
+            <div class="card text-center border-secondary">
                 <div class="card-header">
                     <p class="m-0">Окно результатов генерации</p>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col">
-                            <h2 class="card-title"><span id="surnameOutput">Генерация фамилии</span></h2>
-                            <h3><span id="firstNameOutput">Генерация имени</span></h3>
-							<h3><span id="patronymicOutput">Генерация отчества</span></h4>
+                            <h2 class="card-title"><span class="output-item" id="surnameOutput">Генерация фамилии</span></h2>
+                            <h3><span class="output-item" id="firstNameOutput">Генерация имени</span></h3>
+							<h3><span class="output-item" id="patronymicOutput">Генерация отчества</span></h4>
 							<hr>
-							<h4><span id="professionOutput">Генерация профессии</span></h4>
+							<h4><span class="output-item" id="professionOutput">Генерация профессии</span></h4>
 
                             <p>
-                                <span id="genderOutput">Генерация пола</span><span>, </span>
+                                <span class="output-item" id="genderOutput">Генерация пола</span><span>, </span>
 								<br>
                                 <span>Дата рождения:</span>
-                                <span id="birthDateOutput">Генерация даты рождения</span>
+                                <span class="output-item" id="birthDateOutput">Генерация даты рождения</span>
                             </p>
-							
+
 							<hr>
 
 							<button id="clear-button" class="btn-lg btn-danger">Очистить</button>
