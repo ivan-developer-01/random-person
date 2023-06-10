@@ -20,9 +20,10 @@ const personGenerator = {
             "id_16": "Морозов"
         }
     }`,
+
     firstNameMaleJson: `{
         "count": 10,
-        "list": {     
+        "list": {
             "id_1": "Александр",
             "id_2": "Максим",
             "id_3": "Иван",
@@ -36,8 +37,27 @@ const personGenerator = {
         }
     }`,
 
+    firstNameFemaleJson: `{
+        "count": 10,
+        "list": {
+            "id_1": "Елена",
+            "id_2": "Ольга",
+            "id_3": "Дарья",
+            "id_4": "София",
+            "id_5": "Анастасия",
+            "id_6": "Анна",
+            "id_7": "Екатерина",
+            "id_8": "Мария",
+            "id_9": "Наталья",
+            "id_10": "Светлана"
+        }
+    }`,
+
     GENDER_MALE: 'Мужчина',
     GENDER_FEMALE: 'Женщина',
+
+    MIN_BIRTH_YEAR: 1970,
+    MAX_BIRTH_YEAR: 2000,
 
     randomIntNumber: (max = 1, min = 0) => Math.floor(Math.random() * (max - min + 1) + min),
 
@@ -48,16 +68,32 @@ const personGenerator = {
     },
 
     randomFirstName: function() {
-        return this.randomValue(this.firstNameMaleJson);
+        let firstName;
+        if (this.person?.gender === this.GENDER_MALE) {
+            firstName = this.randomValue(this.firstNameMaleJson);
+        } else if (this.person?.gender === this.GENDER_FEMALE) {
+            firstName = this.randomValue(this.firstNameFemaleJson);
+        }
+
+        if (firstName) return firstName;
+        else throw new Error("Bad script code!");
     },
 
 
     randomSurname: function() {
-        return this.randomValue(this.surnameJson);
+        let returnSurname = this.randomValue(this.surnameJson);
+        if (this.person?.gender === this.GENDER_MALE) return returnSurname;
+        else if (this.person?.gender === this.GENDER_FEMALE) return returnSurname + "а";
+
+        throw new Error("Bad script code!");
     },
 
     randomGender: function() {
         return (Math.round(Math.random()) === 0) ? this.GENDER_MALE : this.GENDER_FEMALE;
+    },
+
+    randomBirthYear: function() {
+        return this.randomIntNumber(this.MIN_BIRTH_YEAR, this.MAX_BIRTH_YEAR);
     },
 
 
@@ -66,6 +102,7 @@ const personGenerator = {
         this.person.gender = this.randomGender();
         this.person.firstName = this.randomFirstName();
         this.person.surname = this.randomSurname();
+        this.person.birthYear = this.randomBirthYear();
         return this.person;
     }
 };
