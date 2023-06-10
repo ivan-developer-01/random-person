@@ -8,6 +8,6 @@ window.onload = function() {
 
     firstNameElem.innerText = initPerson.firstName;
     surnameElem.innerText = initPerson.surname;
-
+	genderOutput.innerText = initPerson.gender;
     yearOutputElem.innerText = initPerson.birthYear;
 };
