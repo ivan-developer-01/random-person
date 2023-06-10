@@ -1,4 +1,25 @@
 const personGenerator = {
+	monthTextsJson: `{
+	"1": "января",
+	"2": "февраля",
+	"3": "марта",
+	"4": "апреля",
+	"5": "мая",
+	"6": "июня",
+	"7": "июля",
+	"8": "августа",
+	"9": "сентября",
+	"10": "октября",
+	"11": "ноября",
+	"12": "декабря"
+}`,
+
+	monthToText: function(month) {
+		let data = JSON.parse(this.monthTextsJson);
+
+		return data[month] || month;
+	},
+
 	get professionJson() {
 		return `{
 	"male": ${this.professionJsonMale},
@@ -182,8 +203,52 @@ const personGenerator = {
         return (Math.round(Math.random()) === 0) ? this.GENDER_MALE : this.GENDER_FEMALE;
     },
 
-    randomBirthYear: function() {
-        return this.randomIntNumber(this.MIN_BIRTH_YEAR, this.MAX_BIRTH_YEAR);
+    randomBirthDate: function(isOnlyTwoDigits) {
+		const year = this.randomIntNumber(this.MIN_BIRTH_YEAR, this.MAX_BIRTH_YEAR);
+		const month = this.randomIntNumber(1, 12) - 1;
+
+		let minDay = 1;
+		let maxDay = 31; // Возможно, эта переменная поменяется в зависимости от месяца
+		let day;
+
+		switch (month) {
+			case 0: // Январь
+			case 2: // Март
+			case 4: // Май
+			case 6: // Июль
+			case 7: // Август
+			case 9: // Октябрь
+			case 11: // Декабрь
+				maxDay = 31;
+				break;
+			case 1: // Февраль
+				// "Особый" случай
+				let isLeapYear = ((year / 4) % 2) === 0;
+				maxDay = isLeapYear ? 29 : 28;
+				break;
+			case 3: // Апрель
+			case 5: // Июнь
+			case 8: // Сентябрь
+			case 10: // Ноябрь
+				maxDay = 30;
+				break;
+
+			/* Всё правильно, тут индексация месяцев не 1-12, а 0-11, поэтому так */
+		}
+
+		day = this.randomIntNumber(minDay, maxDay);
+
+		let monthString = month;
+		monthString = this.monthToText(month);
+
+		let dayString = day;
+		if (isOnlyTwoDigits) {
+			if (day >= 1 && day <= 9) dayString = "0" + day.toString();
+		}
+
+		const finalBirthDate = `${dayString} ${monthString}, ${year} года`;
+
+        return finalBirthDate;
     },
 
 	randomPatronymic: function() {
@@ -226,7 +291,7 @@ const personGenerator = {
         this.person.gender = this.randomGender();
         this.person.firstName = this.randomFirstName();
         this.person.surname = this.randomSurname();
-        this.person.birthYear = this.randomBirthYear();
+        this.person.birthDate = this.randomBirthDate(false);
 		this.person.patronymic = this.randomPatronymic();
 		this.person.profession = this.randomProfession();
         return this.person;
