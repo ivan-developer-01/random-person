@@ -59,57 +59,6 @@ const personGenerator = {
 		}
 	}`,
 
-	patronymicJsonMale: `{
-		"count": 15,
-		"list": {
-			"id_1": "Демидович",
-            "id_2": "Алексеевич",
-            "id_3": "Родионович",
-            "id_4": "Даниилович",
-            "id_5": "Петрович",
-            "id_6": "Иванович",
-            "id_7": "Сергеевич",
-            "id_8": "Дмитриевич",
-            "id_9": "Степанович",
-            "id_10": "Александрович",
-            "id_11": "Михайлович",
-            "id_12": "Андреевич",
-            "id_13": "Фёдорович",
-            "id_14": "Олегович",
-            "id_15": "Егорович",
-            "id_16": "Артёмович"
-		}
-	}`,
-
-	patronymicJsonFemale: `{
-		"count": 15,
-		"list": {
-			"id_1": "Артуровна",
-            "id_2": "Михайловна",
-            "id_3": "Артёмовна",
-            "id_4": "Вадимовна",
-            "id_5": "Константиновна",
-            "id_6": "Леонидовна",
-            "id_7": "Егоровна",
-            "id_8": "Михайловна",
-            "id_9": "Святославна",
-            "id_10": "Алексеевна",
-            "id_11": "Арсентьева",
-            "id_12": "Кирилловна",
-            "id_13": "Дмитриевна",
-            "id_14": "Егоровна",
-            "id_15": "Владимировна",
-            "id_16": "Тимофеевна"
-		}
-	}`,
-	
-	get patronymicJson() {
-		return `{
-	"male": ${this.patronymicJsonMale},
-	"female": ${this.patronymicJsonFemale}
-}`;
-	},
-
     surnameJson: `{
         "count": 15,
         "list": {
@@ -252,15 +201,34 @@ const personGenerator = {
     },
 
 	randomPatronymic: function() {
-		let patronymicJson = JSON.parse(this.patronymicJson);
-		patronymicJson.male = JSON.stringify(patronymicJson.male);
-		patronymicJson.female = JSON.stringify(patronymicJson.female);
 		let returnPatronymic = "";
 
+		let randomName = this.randomValue(this.firstNameMaleJson);
+
 		if (this.person?.gender === this.GENDER_MALE) {
-			returnPatronymic = this.randomValue(patronymicJson.male);
+			let tmpPatronymic = "";
+
+			console.log(randomName, randomName.endsWith("й"));
+
+			if (randomName.endsWith("й"))
+				tmpPatronymic = randomName.slice(0, randomName.length - 1) + "евич";
+			else if (randomName.endsWith("а"))
+				tmpPatronymic = randomName.slice(0, randomName.length - 1) + "ович";
+			else tmpPatronymic = randomName + "ович";
+
+			returnPatronymic = tmpPatronymic;
 		} else if (this.person?.gender === this.GENDER_FEMALE) {
-			returnPatronymic = this.randomValue(patronymicJson.female);
+			let tmpPatronymic = "";
+
+			console.log(randomName, randomName.endsWith("й"));
+
+			if (randomName.endsWith("й"))
+				tmpPatronymic = randomName.slice(0, randomName.length - 1) + "евна";
+			else if (randomName.endsWith("а"))
+				tmpPatronymic = randomName.slice(0, randomName.length - 1) + "овна";
+			else tmpPatronymic = randomName + "овна";
+
+			returnPatronymic = tmpPatronymic;
 		}
 
 		if (returnPatronymic) return returnPatronymic;
