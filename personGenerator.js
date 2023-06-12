@@ -207,9 +207,7 @@ const personGenerator = {
 
 		if (this.person?.gender === this.GENDER_MALE) {
 			let tmpPatronymic = "";
-
-			console.log(randomName, randomName.endsWith("й"));
-
+			
 			if (randomName.endsWith("й"))
 				tmpPatronymic = randomName.slice(0, randomName.length - 1) + "евич";
 			else if (randomName.endsWith("а"))
@@ -219,8 +217,6 @@ const personGenerator = {
 			returnPatronymic = tmpPatronymic;
 		} else if (this.person?.gender === this.GENDER_FEMALE) {
 			let tmpPatronymic = "";
-
-			console.log(randomName, randomName.endsWith("й"));
 
 			if (randomName.endsWith("й"))
 				tmpPatronymic = randomName.slice(0, randomName.length - 1) + "евна";
